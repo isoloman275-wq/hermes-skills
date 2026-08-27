@@ -15,6 +15,9 @@ drop these into your own setup.
 - `board-drain-watcher/` — wait for a kanban board to clear before running a follow-up step.
 - `hermes-cron-management/` — diagnose & repair Hermes cron jobs (400 model-ID trap, silent-skip, agent-cron OOM).
 - `shipping-security-gate/` — security-threats layer to run before shipping any app, site, or public code.
+- `agent-verification-harness/` — independent-verifier bench + fleet verification gate: prove a worker model actually did the work (measured A/B/C: an independent verifier catches blind-spot errors every run; self-critique adds zero).
+- `hermes-desktop-wsl/` — run and debug the Hermes desktop app from WSL/WSLg: renderer-crash triage, window-recovery sequence, launcher discipline, plus working desktop-plugin templates.
+- `verify-before-claim/` — enforcement layer that blocks unverified factual claims before they ship: every status statement must be tool-proven in the same turn.
 
 Each folder is a drop-in Hermes skill (`SKILL.md`, plus any helper script it ships).
 

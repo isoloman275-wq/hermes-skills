@@ -1,0 +1,26 @@
+[
+  {
+    "question": "How do I verify a factual claim about M2 GPU state before including it in a response?",
+    "answer": "Use `guard(response_text)` which auto-detects claims and probes them. For manual checks: `probe_gpu_state()` runs nvidia-smi via SSH to M2 (<lab-host>). Always verify in the same turn — never from memory or a previous session."
+  },
+  {
+    "question": "What does the engine do with negated claims like '<your-model> is NOT loaded'?",
+    "answer": "It inverts the verification logic. A probe showing the model is NOT loaded (verified=False on the presence probe) means the negated claim is TRUE and passes. Only genuinely failed claims get redacted."
+  },
+  {
+    "question": "Where is the engine and how is it wired in?",
+    "answer": "Engine: `/<home>/.hermes/skills/devops/verify-before-claim/verify_guard.py`. Hook: `verify_guard_hook.py` in the same dir. In config.yaml line 440 it's wired as a `post_tool_call` hook using the venv python directly — not via the .sh wrapper."
+  },
+  {
+    "question": "Why did '<your-model> is NOT loaded' show as FAILED before the fix?",
+    "answer": "Bug in Phase 3 — negation flag was detected but never used to invert the verification predicate. Both positive and negated claims used `any(p.verified for p in relevant_probes)`. Fix: negated claims now use `any(not p.verified for p in relevant_probes)`."
+  },
+  {
+    "question": "Why did guard() crash when run_probes=False?",
+    "answer": "Bug: `verified_claims`, `failed_claims`, and `claim_verifications` were initialized only inside the `if run_probes:` block. Fixed by moving initialization to the top of guard() before the conditional."
+  },
+  {
+    "question": "Can this engine verify claims across all three machines?",
+    "answer": "Yes. M1 via direct http_get (localhost), M2 via SSH + Windows proxy curl, M3 via Windows proxy curl. WSL can't route to <lab-host>/24 directly so M2/M3 probes go through cmd.exe curl on the Windows host."
+  }
+]
