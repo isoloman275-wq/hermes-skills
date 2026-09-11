@@ -22,3 +22,16 @@ drop these into your own setup.
 Each folder is a drop-in Hermes skill (`SKILL.md`, plus any helper script it ships).
 
 Built by NZ1Labs.
+
+- `ultron-execution-discipline/` — the operating standard this lab runs on: execute-don't-narrate, verify the deliverable (not the code claiming success), explicit-OK gates for irreversible actions, veto = hard cancel.
+- `verify-before-claim/` — enforcement engine that scans outgoing responses for factual claims and probes them live (GPU/process/file/balance) before delivery.
+- `evidence-before-claim/` — proof precedes every claim in the same turn; empty probe ≠ nonexistence; verification trio before declaring anything dead/alive.
+- `watchers/` — poll RSS/JSON/GitHub feeds with watermark dedup for change alerting.
+- `hermes-process-reaper/` — prevents and cleans up stale/duplicate background processes and wedged watchers.
+- `hermes-crash-breaker/` — circuit breaker for kanban worker crash loops (model↔provider mispair root cause).
+- `automation-health-monitoring/` — proactive watchdogs for unattended automations: verify the OUTPUT fired, not that the flag says ok.
+- `kanban-worker/` — pitfalls, examples, and edge cases for Hermes Kanban workers.
+- `hermes-outbound-webhooks/` — HMAC-signed lifecycle event push from Hermes to external endpoints.
+- `webhook-subscriptions/` — event-driven agent runs triggered by external webhooks.
+- `session-recovery/` — resume a crashed/interrupted Hermes session by reconstructing state from history + workspace.
+- `systematic-debugging/` — 4-phase root-cause debugging: understand the bug before fixing it.
